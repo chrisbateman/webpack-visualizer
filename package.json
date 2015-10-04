@@ -5,7 +5,7 @@
   "license": "MIT",
   "scripts": {
     "dev": "webpack-dev-server --config webpack.dev.js",
-    "build": "webpack --config webpack.prod.js --profile --json > stats.json",
+    "build": "webpack --config webpack.prod.js",
     "lint": "eslint src"
   },
   "dependencies": {

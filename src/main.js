@@ -87,7 +87,7 @@ function uploadClickListener(ev) {
 
 function loadDemo(ev) {
     var request = new XMLHttpRequest();
-    request.open('GET', '/test/stats-demo.json', true);
+    request.open('GET', 'test/stats-demo.json', true);
     
     request.onload = function() {
         if (request.status >= 200 && request.status < 400) {
