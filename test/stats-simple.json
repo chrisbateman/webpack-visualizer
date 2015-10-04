@@ -1,0 +1,135 @@
+{
+  "modules": [
+    {
+      "id": 0,
+      "name": "./src/main.jsx",
+      "size": 4,
+      "reasons": []
+    },
+    
+    {
+      "id": 1,
+      "name": "./~/someLib/someLib.js",
+      "size": 10,
+      "reasons": [{"moduleId": 0}, {"moduleId": 3}, {"moduleId": 3}, {"moduleId": 4}]
+    },
+    
+    {
+      "id": 2,
+      "name": "./~/someLib/~/sub/index.js",
+      "size": 5,
+      "reasons": [{
+        "moduleId": 1
+      }]
+    },
+    
+    {
+      "id": 3,
+      "name": "./src/routes.jsx",
+      "size": 3,
+      "reasons": [{
+        "moduleId": 0
+      }]
+    },
+    
+    {
+      "id": 4,
+      "name": "./src/routes/a.jsx",
+      "size": 1,
+      "reasons": [{
+        "moduleId": 3
+      }]
+    },
+    
+    {
+      "id": 5,
+      "name": "./src/routes/b.jsx",
+      "size": 1,
+      "reasons": [{
+        "moduleId": 3
+      }]
+    },
+    
+    {
+      "id": 6,
+      "name": "./src/util/thing.js",
+      "size": 2,
+      "reasons": [{
+        "moduleId": 5
+      }]
+    },
+    
+    {
+      "id": 7,
+      "name": "./~/someLib/~/sub/wow/wow.js",
+      "size": 5,
+      "reasons": [{
+        "moduleId": 6
+      }]
+    },
+    
+    {
+      "id": 8,
+      "name": "./~/someLib/~/sub/wow/such/such.js",
+      "size": 5,
+      "reasons": [{
+        "moduleId": 7
+      }]
+    },
+    
+    {
+      "id": 9,
+      "name": "./~/someLib/~/sub/wow/such/very/very.js",
+      "size": 5,
+      "reasons": [{
+        "moduleId": 8
+      }]
+    },
+    
+    {
+      "id": 10,
+      "name": "./~/someLib/~/sub/wow/such/very/nesting/nesting.js",
+      "size": 5,
+      "reasons": [{
+        "moduleId": 9
+      }]
+    },
+    
+    {
+      "id": 11,
+      "name": "./~/testlib/lib.js",
+      "size": 10,
+      "reasons": [{
+        "moduleId": 0
+      }]
+    },
+    
+    {
+      "id": 12,
+      "name": "./~/someLib/~/testlib/lib.js",
+      "size": 10,
+      "reasons": [{
+        "moduleId": 2
+      }]
+    },
+    
+    {
+      "id": 13,
+      "name": "../symlinklib/slib.js",
+      "size": 3,
+      "reasons": [{
+        "moduleId": 0
+      }]
+    },
+    
+    {
+      "id": 14,
+      "name": "C:/aliasedlib/alib.js",
+      "size": 3,
+      "reasons": [{
+        "moduleId": 0
+      }]
+    }
+    
+  ]
+}
