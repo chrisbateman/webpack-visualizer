@@ -10,8 +10,6 @@ var fileInput;
 
 // initialize
 {
-    let a = 5;
-    a++;
     chartArea.addEventListener('dragover', onDragOver);
     chartArea.addEventListener('dragenter', onDragEnter);
     chartArea.addEventListener('dragleave', onDragLeave);
