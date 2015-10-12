@@ -6,16 +6,15 @@ var webpack = require('webpack');
 
 module.exports = {
     context: __dirname,
-    entry: './src/main',
+    entry: './src/browser',
     output: {
-        //path: path.join(__dirname, 'dist'),
-        path: __dirname,
+        path: path.join(__dirname, 'build'),
         filename: 'build.js'
     },
     module: {
         loaders: [
             {
-                test: /\.js$/,
+                test: /\.(js|jsx)$/,
                 loaders: ['babel'],
                 exclude: /node_modules/
             }
@@ -25,6 +24,6 @@ module.exports = {
         
     ],
     resolve: {
-        extensions: ['', '.js']
+        extensions: ['', '.js', '.jsx']
     }
 };

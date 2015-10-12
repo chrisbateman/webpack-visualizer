@@ -1,11 +1,14 @@
 import d3 from 'd3';
-import appData from './appData';
-import {mouseover, mouseleave} from './mouse';
 import {getColor} from './colors';
-import {markDuplicates} from './partitionedDataUtils';
+import {markDuplicates, getAllChildren, getAncestors} from './partitionedDataUtils';
+import prettySize from 'prettysize';
 
 
-export default function createVisualization(root, elementSelector) {
+const fadeOpacity = 0.5;
+var paths, vis, totalSize;
+
+
+export default function createVisualization({svgElement, root, onHover, onUnhover}) {
     
     var chartSize = (root.maxDepth > 9) ? 950 : 750;
     var radius = Math.min(chartSize, chartSize) / 2;
@@ -25,9 +28,8 @@ export default function createVisualization(root, elementSelector) {
         .outerRadius(d => Math.sqrt(d.y + d.dy));
     
     
-    if (appData.vis) {
-        var chart = document.querySelector(`${elementSelector} > svg`);
-        chart.parentNode.removeChild(chart);
+    if (vis) {
+        svgElement.innerHTML = '';
     }
     
     
@@ -36,9 +38,8 @@ export default function createVisualization(root, elementSelector) {
     
     markDuplicates(nodes);
     
-    appData.vis = d3.select(elementSelector)
-        .classed('chart--large', chartSize === 950)
-        .append('svg:svg')
+    
+    vis = d3.select(svgElement)
         .attr('width', chartSize)
         .attr('height', chartSize)
         .append('svg:g')
@@ -46,7 +47,7 @@ export default function createVisualization(root, elementSelector) {
         .attr('transform', `translate(${chartSize / 2}, ${chartSize / 2})`);
     
     
-    var path = appData.vis.data([root]).selectAll('path')
+    paths = vis.data([root]).selectAll('path')
         .data(nodes)
         .enter()
         .append('svg:path')
@@ -56,22 +57,72 @@ export default function createVisualization(root, elementSelector) {
         .style('stroke', d => (d.duplicate) ? '#000' : '')
         .style('fill', d => getColor(d))
         .style('opacity', 1)
-        .on('mouseover', mouseover);
+        .on('mouseover', object => {
+            mouseover(object, onHover);
+        });
     
-    appData.totalSize = path.node().__data__.value;
+    totalSize = paths.node().__data__.value;
     
     
-    var svgWrapper = appData.vis[0][0];
+    var svgWrapper = vis[0][0];
     var visHeight = svgWrapper.getBoundingClientRect().height;
     
     var topPadding = (svgWrapper.getBoundingClientRect().top + window.scrollY) - (svgWrapper.offsetParent.getBoundingClientRect().top + window.scrollY);
     
-    d3.select(`${elementSelector} > svg`).attr('height', visHeight);
-    appData.vis.attr('transform', `translate(${chartSize / 2}, ${(chartSize / 2) - topPadding})`);
+    d3.select(svgElement).attr('height', visHeight);
+    vis.attr('transform', `translate(${chartSize / 2}, ${(chartSize / 2) - topPadding})`);
     d3.select('.details').style('margin-top', `-${topPadding}px`);
     
     
-    d3.select(svgWrapper).on('mouseleave', mouseleave);
+    d3.select(svgWrapper).on('mouseleave', object => {
+        mouseleave(object, onUnhover);
+    });
     
-    return appData.vis;
+    return {
+        removedTopPadding: topPadding,
+        vis
+    };
+}
+
+
+function mouseover(object, callback) {
+    
+    var childrenArray = getAllChildren(object);
+    var ancestorArray = getAncestors(object);
+    
+    // Fade all the segments.
+    paths.style({
+        'opacity': fadeOpacity,
+        'stroke-width': fadeOpacity
+    });
+    
+    // Highlight only those that are children of the current segment.
+    paths.filter(node => childrenArray.indexOf(node) >= 0)
+        .style({
+            'stroke-width': 2,
+            'opacity': 1
+        });
+    
+    
+    var percentage = (100 * object.value / totalSize).toPrecision(2);
+    var percentageString = percentage + '%';
+    if (percentage < 0.1) {
+        percentageString = '< 0.1%';
+    }
+    
+    callback({
+        ancestorArray,
+        name: object.name,
+        size: prettySize(object.value, true, true),
+        percentage: percentageString
+    });
+}
+
+function mouseleave(object, callback) {
+    paths.style({
+        'opacity': 1,
+        'stroke-width': 1
+    });
+    
+    callback();
 }
