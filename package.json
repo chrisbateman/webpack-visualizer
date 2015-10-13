@@ -11,7 +11,7 @@
     "lint": "eslint src --ext .js,.jsx",
     "version": "npm run lint && npm run build",
     "postversion": "npm run publishSite",
-    "publishSite": "git checkout gh-pages && mv build/* . && git add . && git commit -m 'release' && git push origin gh-pages && mv !(build|node_modules) build && git checkout master"
+    "publishSite": "git checkout gh-pages && mv build/* . && git add . && git commit -m 'release' && git push origin gh-pages && git checkout master"
   },
   "dependencies": {
     "babel": "^5.8.23",
