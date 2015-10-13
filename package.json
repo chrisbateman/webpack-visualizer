@@ -9,7 +9,9 @@
     "build": "webpack --config webpack.prod.js && babel-node serverRender.js",
     "postbuild": "cp src/style.css test/stats-demo.json build",
     "lint": "eslint src --ext .js,.jsx",
-    "version": "npm run lint && npm run build"
+    "version": "npm run lint && npm run build",
+    "postversion": "npm run publishSite",
+    "publishSite": "git checkout gh-pages && mv build/* . && git add . && git commit -m 'release' && git push origin gh-pages && rm * && git checkout master"
   },
   "dependencies": {
     "babel": "^5.8.23",
