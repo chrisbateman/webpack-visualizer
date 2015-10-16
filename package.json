@@ -1,6 +1,6 @@
 {
   "name": "webpack-visualizer",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "author": "Chris Bateman (http://cbateman.com/)",
   "license": "MIT",
   "scripts": {
