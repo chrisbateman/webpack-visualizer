@@ -1,10 +1,11 @@
 import React from 'react';
-import Chart from './components/chart';
-import ChartDetails from './components/chart-details';
-import Breadcrumbs from './components/breadcrumbs';
-import addDragDrop from './util/dragdrop';
-import readFile from './util/readFile';
-import buildHierarchy from './buildHierarchy';
+import Chart from '../shared/components/chart';
+import ChartDetails from '../shared/components/chart-details';
+import Breadcrumbs from '../shared/components/breadcrumbs';
+import Footer from '../shared/components/footer';
+import addDragDrop from '../shared/util/dragdrop';
+import readFile from '../shared/util/readFile';
+import buildHierarchy from '../shared/buildHierarchy';
 
 
 export default React.createClass({
@@ -150,23 +151,11 @@ export default React.createClass({
                 
                 <Breadcrumbs nodes={this.state.breadcrumbNodes} />
                 
-                <footer>
+                <Footer>
                     <h2>How do I get stats JSON from webpack?</h2>
-                    <p><code>webpack --profile --json > stats.json</code></p>
+                    <p><code>webpack --json > stats.json</code></p>
                     <p>Or you can use <a href="https://www.npmjs.com/package/webpack-stats-plugin">webpack-stats-plugin</a></p>
-                    
-                    <h2>Disclaimer</h2>
-                    <p> Webpack records the pre-minified size of each module (since minifying is done with a plugin rather than a loader). Since not all modules minify as efficiently as others, the perecentages displayed here can only be an approximation of the true, minfied numbers.</p>
-                    
-                    <h2>Contribute!</h2>
-                    <p>This tool is still pretty new. Check it out on <a href="https://github.com/chrisbateman/webpack-visualizer">GitHub</a>, and please <a href="https://github.com/chrisbateman/webpack-visualizer/issues">report issues or request features</a>!</p>
-                    
-                    <h2>Acknowledgements</h2>
-                    <p><a href="https://github.com/hughsk/disc">Disc</a> for Browserify did this first. Thanks also to <a href="https://gist.github.com/kerryrodden/7090426">this example</a> from the D3 gallery for demonstating how to create sunburst charts.</p>
-                    
-                    <h2>Comments, questions</h2>
-                    <p>Let me know! <a href="https://twitter.com/batemanchris/">@batemanchris</a></p>
-                </footer>
+                </Footer>
             </div>
         );
     }

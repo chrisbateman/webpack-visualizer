@@ -46,6 +46,7 @@
         "arrow-spacing": 1,
         "brace-style": [2, "1tbs"],
         "camelcase": 1,
+        "comma-dangle": 1,
         "comma-spacing": 1,
         "curly": [2, "all"],
         "dot-notation": [1, {"allowKeywords": true}],

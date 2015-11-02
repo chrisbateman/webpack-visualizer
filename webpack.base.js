@@ -6,11 +6,6 @@ var webpack = require('webpack');
 
 module.exports = {
     context: __dirname,
-    entry: './src/browser',
-    output: {
-        path: path.join(__dirname, 'build'),
-        filename: 'build.js'
-    },
     module: {
         loaders: [
             {
@@ -20,9 +15,6 @@ module.exports = {
             }
         ]
     },
-    plugins: [
-        
-    ],
     resolve: {
         extensions: ['', '.js', '.jsx']
     }

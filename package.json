@@ -1,17 +1,32 @@
 {
-  "name": "webpack-visualizer",
-  "version": "1.0.2",
+  "private": true,
+  "name": "webpack-visualizer-plugin",
+  "version": "0.1.0",
+  "main": "lib/plugin.js",
   "author": "Chris Bateman (http://cbateman.com/)",
   "license": "MIT",
+  "files": [
+    "lib",
+    "src",
+    "README.md"
+  ],
   "scripts": {
+    "build": "npm run buildsite && npm run buildplugin",
+    
+    "prebuildplugin": "rm -rf lib && mkdir lib",
+    "buildplugin": "webpack src/plugin/main.jsx lib/pluginmain.js --config webpack.prod.js",
+    "postbuildplugin": "babel src/shared/buildHierarchy.js --out-file lib/buildHierarchy.js && babel src/plugin/plugin.js --out-file lib/plugin.js && cp src/shared/style.css lib",
+    
+    "prebuildsite": "rm -rf dist-site && mkdir dist-site",
+    "buildsite": "webpack src/site/main.jsx dist-site/build.js --config webpack.prod.js && babel-node src/site/serverRender.js",
+    "postbuildsite": "cp src/shared/style.css test/stats-demo.json dist-site",
+    
     "dev": "webpack-dev-server --config webpack.dev.js",
-    "prebuild": "rm -rf build && mkdir build",
-    "build": "webpack --config webpack.prod.js && babel-node serverRender.js",
-    "postbuild": "cp src/style.css test/stats-demo.json build",
     "lint": "eslint src --ext .js,.jsx",
-    "version": "npm run lint && npm run build",
+    
+    "preversion": "npm run lint && npm run build",
     "postversion": "npm run publishSite",
-    "publishSite": "git checkout gh-pages && cp build/* . && git add . && git reset -- build && git commit -m 'release' && git push origin gh-pages && git checkout master"
+    "publishSite": "git checkout gh-pages && cp dist-site/* . && git add . && git reset -- dist-site && git commit -m 'release' && git push origin gh-pages && git checkout master"
   },
   "dependencies": {
     "babel": "^5.8.23",
@@ -31,6 +46,5 @@
   },
   "engines": {
     "npm": ">=2.13.0"
-  },
-  "private": true
+  }
 }

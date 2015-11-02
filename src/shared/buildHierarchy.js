@@ -37,7 +37,7 @@ export default function buildHierarchy(json) {
             fullName: module.name,
             size: size,
             reasons: module.reasons,
-            source: module.source
+            //source: module.source
         };
         
         var depth = mod.fullName.split('/').length - 1;
