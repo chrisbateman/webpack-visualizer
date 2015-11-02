@@ -130,7 +130,7 @@ export default React.createClass({
                 <div ref="ChartArea" className={chartAreaClass} onClick={this.chartAreaClick}>
                     <div className="chart-uploadMessage">
                         <p>Drop JSON file here or click to choose.</p>
-                        <small>Files won't be uploaded &mdash; your data stays in the browser.</small>
+                        <small>Files won't be uploaded &mdash; your data stays in your browser.</small>
                     </div>
                     <ChartDetails details={this.state.hoverDetails} topMargin={this.state.paddingDiff} />
                     <Chart
@@ -154,7 +154,10 @@ export default React.createClass({
                 <Footer>
                     <h2>How do I get stats JSON from webpack?</h2>
                     <p><code>webpack --json > stats.json</code></p>
-                    <p>Or you can use <a href="https://www.npmjs.com/package/webpack-stats-plugin">webpack-stats-plugin</a></p>
+                    
+                    <h2>Try the Plugin!</h2>
+                    <p>This tool is also available as a webpack plugin:</p>
+                    <p><code>npm install webpack-visualizer-plugin</code></p>
                 </Footer>
             </div>
         );
