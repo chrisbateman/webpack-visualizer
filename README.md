@@ -3,4 +3,8 @@ Visualize and analyze your Webpack bundle to see which modules are taking up spa
 
 This tool is still pretty new, so please submit issues or feature requests!
 
-![](https://cloud.githubusercontent.com/assets/1145857/10455679/4468035c-7182-11e5-9c63-99d4525c319d.png)
+## Usage Options
+
+Site
+
+![](https://cloud.githubusercontent.com/assets/1145857/10471320/5b284d60-71da-11e5-8d35-7d1d4c58843a.png)
