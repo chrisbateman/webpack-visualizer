@@ -8,6 +8,10 @@
     "lib",
     "README.md"
   ],
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:chrisbateman/webpack-visualizer.git"
+  },
   "scripts": {
     "build": "npm run buildsite && npm run buildplugin",
     "prebuildplugin": "rm -rf lib && mkdir lib",
