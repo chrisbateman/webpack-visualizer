@@ -18,7 +18,7 @@ export default class VisualizerPlugin {
             var nodes = buildHierarchy(stats);
             
             var html = `<!doctype html>
-                <title>Test</title>
+                <title>Webpack Visualizer</title>
                 <style>${cssString}</style>
                 <div id="App"></div>
                 <script>window.nodesData = JSON.parse('${JSON.stringify(nodes)}');</script>
