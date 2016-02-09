@@ -15,13 +15,11 @@ export default class VisualizerPlugin {
     apply(compiler) {
         compiler.plugin('emit', (compilation, callback) => {
             var stats = compilation.getStats().toJson();
-            var nodes = buildHierarchy(stats);
-            
             var html = `<!doctype html>
                 <title>Webpack Visualizer</title>
                 <style>${cssString}</style>
                 <div id="App"></div>
-                <script>window.nodesData = JSON.parse('${JSON.stringify(nodes)}');</script>
+                <script>window.nodesData = ${JSON.stringify(buildHierarchy(stats))};</script>
                 <script>${jsString}</script>
             `;
             
