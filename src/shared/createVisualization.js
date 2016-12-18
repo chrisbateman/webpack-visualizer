@@ -65,9 +65,10 @@ export default function createVisualization({svgElement, root, onHover, onUnhove
     
     
     var svgWrapper = vis[0][0];
+    
     var visHeight = svgWrapper.getBoundingClientRect().height;
     
-    var topPadding = (svgWrapper.getBoundingClientRect().top + window.scrollY) - (svgWrapper.offsetParent.getBoundingClientRect().top + window.scrollY);
+    var topPadding = (svgWrapper.getBoundingClientRect().top + window.scrollY) - (d3.select('.chart')[0][0].getBoundingClientRect().top + window.scrollY);
     
     d3.select(svgElement).attr('height', visHeight);
     vis.attr('transform', `translate(${chartSize / 2}, ${(chartSize / 2) - topPadding})`);
