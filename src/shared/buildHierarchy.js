@@ -8,6 +8,15 @@ export default function buildHierarchy(json) {
     };
     
     modules.forEach(function addToTree(module) {
+        // remove this module if either:
+        // - duplicate/incorrect style-loader item
+        // - issued by extract-text-plugin, which means it was moved to a css file
+        if (module.identifier.indexOf('css-loader') !== -1) {
+            if (module.identifier.indexOf('style-loader') !== -1 || module.issuer.indexOf('extract-text-webpack-plugin') !== -1) {
+                return;
+            }
+        }
+        
         let mod = {
             id: module.id,
             fullName: module.name,
