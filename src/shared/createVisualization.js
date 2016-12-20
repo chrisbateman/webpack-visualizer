@@ -104,8 +104,7 @@ function mouseover(object, callback) {
             'opacity': 1
         });
     
-    
-    var percentage = (100 * object.value / totalSize).toPrecision(2);
+    var percentage = (100 * object.value / totalSize).toFixed(1);
     var percentageString = percentage + '%';
     if (percentage < 0.1) {
         percentageString = '< 0.1%';
