@@ -80,7 +80,7 @@
         "react/no-direct-mutation-state": 2,
         "react/no-multi-comp": 1,
         "react/no-unknown-property": 2,
-        "react/prop-types": 2,
+        "react/prop-types": [2, {ignore: "children"}],
         "react/react-in-jsx-scope": 2,
         "react/self-closing-comp": 1,
         "react/sort-comp": 2,

@@ -1,10 +1,10 @@
-import React from 'react';
+import React, {PropTypes} from 'react';
 
 
-export default props => (
+let Breadcrumbs = props => (
     <div className="breadcrumbs">
         {props.nodes.map((node, i) => {
-            var result = ' > ';
+            let result = ' > ';
             if (i === 0) {
                 result = '';
             }
@@ -12,3 +12,9 @@ export default props => (
         })}
     </div>
 );
+
+Breadcrumbs.propTypes = {
+    nodes: PropTypes.array
+};
+
+export default Breadcrumbs;

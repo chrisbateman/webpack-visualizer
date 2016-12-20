@@ -4,22 +4,21 @@ import {markDuplicates, getAllChildren, getAncestors} from './partitionedDataUti
 import prettySize from 'prettysize';
 
 
-const fadeOpacity = 0.5;
-var paths, vis, totalSize;
+const FADE_OPACITY = 0.5;
+let paths, vis, totalSize;
 
 
 export default function createVisualization({svgElement, root, onHover, onUnhover}) {
+    let chartSize = (root.maxDepth > 9) ? 950 : 750;
+    let radius = Math.min(chartSize, chartSize) / 2;
     
-    var chartSize = (root.maxDepth > 9) ? 950 : 750;
-    var radius = Math.min(chartSize, chartSize) / 2;
     
-    
-    var partition = d3.layout.partition()
+    let partition = d3.layout.partition()
         .size([2 * Math.PI, radius * radius])
         .value(d => d.size);
     
     
-    var arc = d3.svg.arc()
+    let arc = d3.svg.arc()
         .startAngle(d => d.x)
         .endAngle(d => d.x + d.dx)
         //.innerRadius(d => d.y / 400 + 60)
@@ -34,7 +33,7 @@ export default function createVisualization({svgElement, root, onHover, onUnhove
     
     
     // Filter out very small nodes
-    var nodes = partition.nodes(root).filter(d => d.dx > 0.005); // 0.005 radians
+    let nodes = partition.nodes(root).filter(d => d.dx > 0.005); // 0.005 radians
     
     markDuplicates(nodes);
     
@@ -64,11 +63,11 @@ export default function createVisualization({svgElement, root, onHover, onUnhove
     totalSize = paths.node().__data__.value;
     
     
-    var svgWrapper = vis[0][0];
+    let svgWrapper = vis[0][0];
     
-    var visHeight = svgWrapper.getBoundingClientRect().height;
+    let visHeight = svgWrapper.getBoundingClientRect().height;
     
-    var topPadding = (svgWrapper.getBoundingClientRect().top + window.scrollY) - (d3.select('.chart')[0][0].getBoundingClientRect().top + window.scrollY);
+    let topPadding = (svgWrapper.getBoundingClientRect().top + window.scrollY) - (d3.select('.chart')[0][0].getBoundingClientRect().top + window.scrollY);
     
     d3.select(svgElement).attr('height', visHeight);
     vis.attr('transform', `translate(${chartSize / 2}, ${(chartSize / 2) - topPadding})`);
@@ -87,14 +86,13 @@ export default function createVisualization({svgElement, root, onHover, onUnhove
 
 
 function mouseover(object, callback) {
-    
-    var childrenArray = getAllChildren(object);
-    var ancestorArray = getAncestors(object);
+    let childrenArray = getAllChildren(object);
+    let ancestorArray = getAncestors(object);
     
     // Fade all the segments.
     paths.style({
-        'opacity': fadeOpacity,
-        'stroke-width': fadeOpacity
+        'opacity': FADE_OPACITY,
+        'stroke-width': FADE_OPACITY
     });
     
     // Highlight only those that are children of the current segment.
@@ -104,8 +102,8 @@ function mouseover(object, callback) {
             'opacity': 1
         });
     
-    var percentage = (100 * object.value / totalSize).toFixed(1);
-    var percentageString = percentage + '%';
+    let percentage = (100 * object.value / totalSize).toFixed(1);
+    let percentageString = percentage + '%';
     if (percentage < 0.1) {
         percentageString = '< 0.1%';
     }

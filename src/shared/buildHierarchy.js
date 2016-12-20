@@ -1,53 +1,28 @@
-//import UglifyJS from '../uglifyjs';
-//import 'imports?this=>window!../uglifyjs';
-
-
 export default function buildHierarchy(json) {
-    var modules = json.modules;
-    var maxDepth = 1;
+    let modules = json.modules;
+    let maxDepth = 1;
     
-    var root = {
+    let root = {
         children: [],
         name: 'root'
     };
     
     modules.forEach(function addToTree(module) {
-        var size;
-        
-        //if (module.source) {
-            //size = module.source.length;
-            /*
-            var toplevel_ast = window.UglifyJS.parse(module.source);
-            toplevel_ast.figure_out_scope();
-            var compressor = window.UglifyJS.Compressor();
-            var compressed_ast = toplevel_ast.transform(compressor);
-            compressed_ast.figure_out_scope();
-            compressed_ast.compute_char_frequency();
-            compressed_ast.mangle_names();
-            var code = compressed_ast.print_to_string();
-            
-            size = code.length;*/
-            
-        //} else {
-        size = module.size;
-        //}
-        
-        var mod = {
+        let mod = {
             id: module.id,
             fullName: module.name,
-            size: size,
-            reasons: module.reasons,
-            //source: module.source
+            size: module.size,
+            reasons: module.reasons
         };
         
-        var depth = mod.fullName.split('/').length - 1;
+        let depth = mod.fullName.split('/').length - 1;
         if (depth > maxDepth) {
             maxDepth = depth;
         }
         
-        var fileName = mod.fullName;
+        let fileName = mod.fullName;
         
-        var beginning = mod.fullName.slice(0, 2);
+        let beginning = mod.fullName.slice(0, 2);
         if (beginning === './') {
             fileName = fileName.slice(2);
         }
@@ -62,15 +37,15 @@ export default function buildHierarchy(json) {
 
 
 function getFile(module, fileName, parentTree) {
-    var charIndex = fileName.indexOf('/');
+    let charIndex = fileName.indexOf('/');
     
     if (charIndex !== -1) {
-        var folder = fileName.slice(0, charIndex);
+        let folder = fileName.slice(0, charIndex);
         if (folder === '~') {
             folder = 'node_modules';
         }
         
-        var childFolder = getChild(parentTree.children, folder);
+        let childFolder = getChild(parentTree.children, folder);
         if (!childFolder) {
             childFolder = {
                 name: folder,
@@ -88,7 +63,7 @@ function getFile(module, fileName, parentTree) {
 
 
 function getChild(arr, name) {
-    for (var i = 0; i < arr.length; i++) {
+    for (let i = 0; i < arr.length; i++) {
         if (arr[i].name === name) {
             return arr[i];
         }

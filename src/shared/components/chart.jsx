@@ -1,16 +1,13 @@
-import React from 'react';
+import React, {PropTypes} from 'react';
 import createVisualization from '../createVisualization';
-
-
-const pt = React.PropTypes;
 
 
 export default React.createClass({
     propTypes: {
-        data: pt.object,
-        onHover: pt.func,
-        onRender: pt.func,
-        onUnhover: pt.func
+        data: PropTypes.object,
+        onHover: PropTypes.func,
+        onRender: PropTypes.func,
+        onUnhover: PropTypes.func
     },
     
     componentDidMount() {
@@ -26,7 +23,7 @@ export default React.createClass({
     },
     
     createChart(root) {
-        var details = createVisualization({
+        let details = createVisualization({
             svgElement: this.refs.svg,
             root,
             onHover: this.props.onHover,
@@ -43,8 +40,6 @@ export default React.createClass({
             return null;
         }
         
-        return (
-            <svg ref="svg" />
-        );
+        return <svg ref="svg" />;
     }
 });

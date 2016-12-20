@@ -1,8 +1,8 @@
-import React from 'react';
+import React, {PropTypes} from 'react';
 
 
-export default props => {
-    var {details} = props;
+let ChartDetails = props => {
+    let {details} = props;
     
     if (!details) {
         return <div className="details" />;
@@ -17,3 +17,10 @@ export default props => {
         </div>
     );
 };
+
+ChartDetails.propTypes = {
+    details: PropTypes.object,
+    topMargin: PropTypes.number
+};
+
+export default ChartDetails;

@@ -1,4 +1,4 @@
-const colors = {
+let colors = {
     '__file__': '#db7100',
     //'node_modules': '#599e59',
     //'node_modules': '#215E21',
@@ -8,8 +8,8 @@ const colors = {
 
 
 export function getColor(obj) {
-    var name = obj.name;
-    var dotIndex = name.indexOf('.');
+    let name = obj.name;
+    let dotIndex = name.indexOf('.');
     
     if (dotIndex !== -1 && dotIndex !== 0 && dotIndex !== name.length - 1) {
         return colors.__file__;

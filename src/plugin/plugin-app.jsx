@@ -6,7 +6,6 @@ import Footer from '../shared/components/footer';
 
 
 export default React.createClass({
-    
     propTypes: {
         chartData: React.PropTypes.object
     },
@@ -40,7 +39,7 @@ export default React.createClass({
     },
     
     render() {
-        var chartAreaClass = 'chart';
+        let chartAreaClass = 'chart';
         
         if (this.props.chartData && this.props.chartData.maxDepth > 9) {
             chartAreaClass += ' chart--large';

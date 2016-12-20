@@ -9,7 +9,6 @@ import buildHierarchy from '../shared/buildHierarchy';
 
 
 export default React.createClass({
-    
     getInitialState() {
         return {
             needsUpload: true,
@@ -51,7 +50,7 @@ export default React.createClass({
     },
     
     handleFileUpload(jsonText) {
-        var json = JSON.parse(jsonText);
+        let json = JSON.parse(jsonText);
         
         this.setState({
             needsUpload: false,
@@ -64,7 +63,7 @@ export default React.createClass({
             demoLoading: true
         });
         
-        var request = new XMLHttpRequest();
+        let request = new XMLHttpRequest();
         request.open('GET', 'stats-demo.json', true);
         
         request.onload = () => {
@@ -101,8 +100,8 @@ export default React.createClass({
     },
     
     render() {
-        var demoButton;
-        var chartAreaClass = 'chart';
+        let demoButton;
+        let chartAreaClass = 'chart';
         
         if (this.state.dragging) {
             chartAreaClass += ' chart--dragging';

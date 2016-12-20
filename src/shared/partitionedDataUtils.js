@@ -1,7 +1,7 @@
 
 export function getAncestors(node) {
-    var ancestors = [];
-    var current = node;
+    let ancestors = [];
+    let current = node;
     
     while (current.parent) {
         ancestors.unshift(current);
@@ -13,9 +13,9 @@ export function getAncestors(node) {
 
 
 export function getAllChildren(rootNode) {
-    var allChildren = [];
+    let allChildren = [];
     
-    var getChildren = function(node) {
+    let getChildren = function(node) {
         allChildren.push(node);
         
         if (node.children) {
@@ -32,7 +32,7 @@ export function getAllChildren(rootNode) {
 
 
 export function markDuplicates(nodes) {
-    var fullNameList = {};
+    let fullNameList = {};
     
     nodes.forEach(item => {
         if (!item.fullName) {

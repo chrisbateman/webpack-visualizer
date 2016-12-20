@@ -1,8 +1,8 @@
 import path from 'path';
 import fs from 'fs';
 import buildHierarchy from './buildHierarchy';
-var cssString = fs.readFileSync(path.join(__dirname, './style.css'), 'utf8');
-var jsString = fs.readFileSync(path.join(__dirname, './pluginmain.js'), 'utf8');
+let cssString = fs.readFileSync(path.join(__dirname, './style.css'), 'utf8');
+let jsString = fs.readFileSync(path.join(__dirname, './pluginmain.js'), 'utf8');
 
 
 export default class VisualizerPlugin {
@@ -14,8 +14,8 @@ export default class VisualizerPlugin {
     
     apply(compiler) {
         compiler.plugin('emit', (compilation, callback) => {
-            var stats = compilation.getStats().toJson();
-            var html = `<!doctype html>
+            let stats = compilation.getStats().toJson();
+            let html = `<!doctype html>
                 <title>Webpack Visualizer</title>
                 <style>${cssString}</style>
                 <div id="App"></div>
@@ -24,10 +24,10 @@ export default class VisualizerPlugin {
             `;
             
             compilation.assets[this.opts.filename] = {
-                source: function () {
+                source() {
                     return html;
                 },
-                size: function () {
+                size() {
                     return html.length;
                 }
             };

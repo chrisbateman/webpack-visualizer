@@ -5,7 +5,7 @@ import App from './app';
 import createHTMLString from './index.html.js';
 
 
-var pageHTML = createHTMLString({
+let pageHTML = createHTMLString({
     appHTML: ReactDOM.renderToString(<App/>)
 });
 

@@ -13,7 +13,7 @@ export default function addDragDrop({el, onDragStart, onDragEnd, callback}) {
     function onDrop(ev) {
         ev.preventDefault();
         
-        var file = ev.dataTransfer.files[0];
+        let file = ev.dataTransfer.files[0];
         
         onDragEnd();
         callback(file);
