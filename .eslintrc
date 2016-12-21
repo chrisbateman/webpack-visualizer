@@ -9,6 +9,7 @@
         "node": true
     },
     "ecmaFeatures": {
+        "experimentalObjectRestSpread": true,
         "jsx": true,
         "modules": true
     },

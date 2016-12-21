@@ -16,7 +16,7 @@
     "build": "npm run buildsite && npm run buildplugin",
     "prebuildplugin": "rm -rf lib && mkdir lib",
     "buildplugin": "webpack src/plugin/main.jsx lib/pluginmain.js --config webpack.prod.js",
-    "postbuildplugin": "babel src/shared/buildHierarchy.js --out-file lib/buildHierarchy.js && babel src/plugin/plugin.js --out-file lib/plugin.js && cp src/shared/style.css lib",
+    "postbuildplugin": "babel src/plugin/plugin.js --out-file lib/plugin.js && cp src/shared/style.css lib",
     "prebuildsite": "rm -rf dist-site && mkdir dist-site",
     "buildsite": "webpack src/site/main.jsx dist-site/build.js --config webpack.prod.js && babel-node src/site/serverRender.js",
     "postbuildsite": "cp src/shared/style.css test/stats-demo.json dist-site",
@@ -27,7 +27,6 @@
   },
   "dependencies": {
     "d3": "^3.5.6",
-    "prettysize": "0.0.3",
     "react": "^0.14.0",
     "react-dom": "^0.14.0"
   },

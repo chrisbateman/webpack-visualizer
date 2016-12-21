@@ -1,5 +1,4 @@
-export default function buildHierarchy(json) {
-    let modules = json.modules;
+export default function buildHierarchy(modules) {
     let maxDepth = 1;
     
     let root = {

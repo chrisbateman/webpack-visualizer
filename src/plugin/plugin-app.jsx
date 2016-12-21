@@ -1,66 +1,91 @@
 import React from 'react';
-import Chart from '../shared/components/chart';
-import ChartDetails from '../shared/components/chart-details';
-import Breadcrumbs from '../shared/components/breadcrumbs';
+import ChartWithDetails from '../shared/components/chart-with-details';
 import Footer from '../shared/components/footer';
+import buildHierarchy from '../shared/buildHierarchy';
+import {getAssetsData, getBundleDetails, ERROR_CHUNK_MODULES} from '../shared/util/stat-utils';
 
 
 export default React.createClass({
     propTypes: {
-        chartData: React.PropTypes.object
+        stats: React.PropTypes.object
     },
-    
+
     getInitialState() {
         return {
-            hoverDetails: null,
-            breadcrumbNodes: [],
-            paddingDiff: 0
+            assets: [],
+            chartData: null,
+            selectedAssetIndex: 0
         };
     },
-    
-    onChartRender(details) {
+
+    componentWillMount() {
+        let stats = this.props.stats;
+        let assets = getAssetsData(stats.assets, stats.chunks);
+
         this.setState({
-            paddingDiff: details.removedTopPadding
+            assets,
+            chartData: buildHierarchy(stats.modules),
+            selectedAssetIndex: 0,
+            stats
         });
     },
-    
-    onChartHover(details) {
-        this.setState({
-            hoverDetails: details,
-            breadcrumbNodes: details.ancestorArray
-        });
-    },
-    
-    onChartUnhover() {
-        this.setState({
-            hoverDetails: null,
-            breadcrumbNodes: []
-        });
-    },
-    
-    render() {
-        let chartAreaClass = 'chart';
-        
-        if (this.props.chartData && this.props.chartData.maxDepth > 9) {
-            chartAreaClass += ' chart--large';
+
+    onAssetChange(ev) {
+        let selectedAssetIndex = Number(ev.target.value);
+        let modules, chartData, error;
+
+        if (selectedAssetIndex === 0) {
+            modules = this.state.stats.modules;
+        } else {
+            let asset = this.state.assets[selectedAssetIndex - 1];
+            modules = asset.chunk.modules;
         }
-        
+
+        if (modules) {
+            chartData = buildHierarchy(modules);
+        } else {
+            error = ERROR_CHUNK_MODULES;
+        }
+
+        this.setState({
+            chartData,
+            error,
+            selectedAssetIndex
+        });
+    },
+
+    render() {
+        let assetList;
+        let bundleDetails = {};
+
+        if (this.state.stats){
+            bundleDetails = getBundleDetails({
+                assets: this.state.assets,
+                selectedAssetIndex: this.state.selectedAssetIndex
+            });
+        }
+
+        if (this.state.assets.length > 1) {
+            assetList = (
+                <div>
+                    <select onChange={this.onAssetChange} value={this.state.selectedAssetIndex}>
+                        <option value={0}>All Chunks</option>
+                        {this.state.assets.map((asset, i) => <option key={i} value={i + 1}>{asset.name}</option>)}
+                    </select>
+                </div>
+            );
+        }
+
         return (
             <div>
                 <h1>Webpack Visualizer</h1>
-                
-                <div ref="ChartArea" className={chartAreaClass} onClick={this.chartAreaClick}>
-                    <ChartDetails details={this.state.hoverDetails} topMargin={this.state.paddingDiff} />
-                    <Chart
-                        data={this.props.chartData}
-                        onHover={this.onChartHover}
-                        onUnhover={this.onChartUnhover}
-                        onRender={this.onChartRender}
-                    />
-                </div>
-                
-                <Breadcrumbs nodes={this.state.breadcrumbNodes} />
-                
+
+                {assetList}
+
+                <ChartWithDetails chartData={this.state.chartData} bundleDetails={bundleDetails} />
+
+                {this.state.error && <div className="errorMessage">{this.state.error}</div>}
+
                 <Footer />
             </div>
         );

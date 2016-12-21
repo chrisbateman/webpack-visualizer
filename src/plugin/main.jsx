@@ -3,4 +3,4 @@ import ReactDOM from 'react-dom';
 import App from './plugin-app';
 
 
-ReactDOM.render(<App chartData={window.nodesData} />, document.getElementById('App'));
+ReactDOM.render(<App stats={window.stats} />, document.getElementById('App'));
