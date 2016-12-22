@@ -36,6 +36,10 @@ hr {
     border-top: 1px solid #aaa;
 }
 
+code {
+    font-size: 16px;
+}
+
 
 
 .breadcrumbs {
@@ -123,10 +127,23 @@ hr {
     content: ")";
 }
 
+.details-subText {
+    min-height: 1em;
+}
+
 .details-percentage {
     margin: 0.4em 0 0em;
     font-size: 2.4em;
     line-height: 1em;
+}
+
+
+
+.errorMessage {
+    margin-top: 2em;
+    padding: 0.8em 1em;
+    border: 1px solid #ab2222;
+    color: #ab2222;
 }
 
 
