@@ -47,6 +47,38 @@ code {
     margin: 1em 0;
 }
 
+.uploadArea {
+    position: relative;
+    margin: 0 auto;
+    min-height: 350px;
+}
+.uploadArea--needsUpload {
+    border: 2px dashed #AC9062;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.uploadArea--dragging {
+    border-style: solid;
+    background-color: #E6D4B6;
+}
+
+.uploadArea-uploadMessage {
+    display: none;
+    font-size: 1.9em;
+    text-align: center;
+    margin-top: 100px;
+    pointer-events: none;
+}
+.uploadArea--needsUpload .uploadArea-uploadMessage {
+    display: block;
+}
+
+.uploadArea-uploadMessage small {
+    font-size: 0.5em;
+}
+
+
 .chart {
     position: relative;
     margin: 0 auto;
@@ -57,31 +89,7 @@ code {
     margin-left: -100px;
 }
 
-.chart--needsUpload {
-    border: 2px dashed #AC9062;
-    border-radius: 10px;
-    cursor: pointer;
-}
 
-.chart--dragging {
-    border-style: solid;
-    background-color: #E6D4B6;
-}
-
-.chart-uploadMessage {
-    display: none;
-    font-size: 1.9em;
-    text-align: center;
-    margin-top: 100px;
-    pointer-events: none;
-}
-.chart--needsUpload .chart-uploadMessage {
-    display: block;
-}
-
-.chart-uploadMessage small {
-    font-size: 0.5em;
-}
 
 .hiddenFileInput {
     width: 0px;
@@ -128,7 +136,7 @@ code {
 }
 
 .details-subText {
-    min-height: 1em;
+    min-height: 1.2em;
 }
 
 .details-percentage {
