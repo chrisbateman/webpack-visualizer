@@ -11,7 +11,7 @@
   "assets": [
     {
       "name": "bundle.js",
-      "size": 972940,
+      "size": 194788,
       "chunks": [
         0
       ],
@@ -21,7 +21,36 @@
       "emitted": true
     }
   ],
-  "chunks": [],
+  "chunks": [
+    {
+      "id": 0,
+      "rendered": true,
+      "initial": true,
+      "entry": true,
+      "extraAsync": false,
+      "size": 663484,
+      "names": [
+        "main"
+      ],
+      "files": [
+        "bundle.js",
+        "styles.css"
+      ],
+      "hash": "f7113ae1bdaa36ae48da",
+      "parents": [],
+      "origins": [
+        {
+          "moduleId": 0,
+          "module": "multi main",
+          "moduleIdentifier": "multi main",
+          "moduleName": "multi main",
+          "loc": "",
+          "name": "main",
+          "reasons": []
+        }
+      ]
+    }
+  ],
   "modules": [
     {
       "id": 0,
