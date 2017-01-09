@@ -8,12 +8,12 @@ export default function buildHierarchy(modules) {
     
     modules.forEach(function addToTree(module) {
         // remove this module if either:
-        // - duplicate/incorrect style-loader item
-        // - issued by extract-text-plugin, which means it was moved to a css file
-        if (module.identifier.indexOf('css-loader') !== -1) {
-            if (module.identifier.indexOf('style-loader') !== -1 || module.issuer.indexOf('extract-text-webpack-plugin') !== -1) {
-                return;
-            }
+        // - index is null
+        // - issued by extract-text-plugin
+        let extractInIdentifier = module.identifier.indexOf('extract-text-webpack-plugin') !== -1;
+        let extractInIssuer = module.issuer && module.issuer.indexOf('extract-text-webpack-plugin') !== -1;
+        if (extractInIdentifier || extractInIssuer || module.index === null) {
+            return;
         }
         
         let mod = {
