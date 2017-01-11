@@ -24,16 +24,12 @@ export default class VisualizerPlugin {
                 <script>${jsString}</script>
             `;
 
-            compilation.assets[this.opts.filename] = {
-                source() {
-                    return html;
-                },
-                size() {
-                    return html.length;
+            fs.writeFile(path.join(compilation.outputOptions.path, this.opts.filename), html, (err) => {
+                if (err) {
+                    console.log('webpack-visualizer-plugin: error writing stats file'); //eslint-disable-line no-console
                 }
-            };
-
-            callback();
+                callback();
+            });
         });
     }
 }
