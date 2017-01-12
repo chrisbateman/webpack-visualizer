@@ -139,6 +139,10 @@ code {
 }
 
 
+#svgWrapper text {
+    font-size: 11px;
+}
+
 
 .errorMessage {
     margin-top: 2em;
