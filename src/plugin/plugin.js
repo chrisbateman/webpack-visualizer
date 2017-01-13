@@ -1,5 +1,8 @@
+/* eslint no-console:0 */
+
 import path from 'path';
 import fs from 'fs';
+import mkdirp from 'mkdirp';
 let cssString = fs.readFileSync(path.join(__dirname, './style.css'), 'utf8');
 let jsString = fs.readFileSync(path.join(__dirname, './pluginmain.js'), 'utf8');
 
@@ -24,11 +27,20 @@ export default class VisualizerPlugin {
                 <script>${jsString}</script>
             `;
 
-            fs.writeFile(path.join(compilation.outputOptions.path, this.opts.filename), html, (err) => {
-                if (err) {
-                    console.log('webpack-visualizer-plugin: error writing stats file'); //eslint-disable-line no-console
+            let outputFile = path.join(compilation.outputOptions.path, this.opts.filename);
+
+            mkdirp(path.dirname(outputFile), (mkdirpErr) => {
+                if (mkdirpErr) {
+                    console.log('webpack-visualizer-plugin: error writing stats file');
                 }
-                callback();
+
+                fs.writeFile(outputFile, html, (err) => {
+                    if (err) {
+                        console.log('webpack-visualizer-plugin: error writing stats file');
+                    }
+
+                    callback();
+                });
             });
         });
     }
