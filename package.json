@@ -1,6 +1,6 @@
 {
   "name": "webpack-visualizer-plugin",
-  "version": "0.1.10",
+  "version": "0.1.11",
   "main": "lib/plugin.js",
   "author": "Chris Bateman (http://cbateman.com/)",
   "license": "MIT",
