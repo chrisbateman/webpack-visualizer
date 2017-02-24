@@ -58,6 +58,7 @@ export default class ChartWithDetails extends React.Component {
                     onHover={this.onChartHover}
                     onUnhover={this.onChartUnhover}
                     onRender={this.onChartRender}
+                    labels={this.props.labels}
                 />
                 <Breadcrumbs nodes={this.state.breadcrumbNodes} />
             </div>

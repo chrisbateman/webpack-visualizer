@@ -14,6 +14,7 @@ export default React.createClass({
         return {
             assets: [],
             chartData: null,
+            labels: false,
             selectedAssetIndex: 0
         };
     },
@@ -54,6 +55,12 @@ export default React.createClass({
         });
     },
 
+    onLabelsChange(ev) {
+        this.setState({
+            labels: ev.target.checked
+        });
+    },
+
     render() {
         let assetList;
         let bundleDetails = {};
@@ -67,12 +74,10 @@ export default React.createClass({
 
         if (this.state.assets.length > 1) {
             assetList = (
-                <div>
-                    <select onChange={this.onAssetChange} value={this.state.selectedAssetIndex}>
-                        <option value={0}>All Chunks</option>
-                        {this.state.assets.map((asset, i) => <option key={i} value={i + 1}>{asset.name}</option>)}
-                    </select>
-                </div>
+                <select onChange={this.onAssetChange} value={this.state.selectedAssetIndex}>
+                    <option value={0}>All Chunks</option>
+                    {this.state.assets.map((asset, i) => <option key={i} value={i + 1}>{asset.name}</option>)}
+                </select>
             );
         }
 
@@ -80,9 +85,16 @@ export default React.createClass({
             <div>
                 <h1>Webpack Visualizer</h1>
 
-                {assetList}
+                <div>
+                    {assetList}
+                    <input type="checkbox" checked={this.state.labels} 
+                           onChange={this.onLabelsChange} id="labels" />
+                    <label htmlFor="labels">Show labels</label>
+                </div>
 
-                <ChartWithDetails chartData={this.state.chartData} bundleDetails={bundleDetails} />
+                <ChartWithDetails chartData={this.state.chartData}
+                                  bundleDetails={bundleDetails}
+                                  labels={this.state.labels} />
 
                 {this.state.error && <div className="errorMessage">{this.state.error}</div>}
 

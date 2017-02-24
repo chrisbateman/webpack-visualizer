@@ -17,7 +17,11 @@ export default React.createClass({
     },
     
     componentDidUpdate(prevProps) {
-        if (this.props.data && this.props.data !== prevProps.data) {
+        let shouldUpdate = this.props.data && (
+            this.props.data !== prevProps.data ||
+            this.props.labels !== prevProps.labels
+        );
+        if (shouldUpdate) {
             this.createChart(this.props.data);
         }
     },
@@ -27,7 +31,8 @@ export default React.createClass({
             svgElement: this.refs.svg,
             root,
             onHover: this.props.onHover,
-            onUnhover: this.props.onUnhover
+            onUnhover: this.props.onUnhover,
+            labels: this.props.labels
         });
         
         if (this.props.onRender) {
