@@ -3,6 +3,11 @@ export const ERROR_CHUNK_MODULES = `Unfortunately, it looks like your stats don'
 
 
 export function getAssetsData(assets, chunks) {
+    let chunksMap = {};
+    chunks.forEach(chunk => {
+        chunksMap[chunk.id] = chunk;
+    });
+
     return assets
         .filter(asset => asset.name.indexOf('.js') === asset.name.length - 3)
         .map(asset => {
@@ -10,7 +15,7 @@ export function getAssetsData(assets, chunks) {
 
             return {
                 ...asset,
-                chunk: chunks[chunkIndex]
+                chunk: chunksMap[chunkIndex]
             };
         });
 }
