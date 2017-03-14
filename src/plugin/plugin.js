@@ -14,9 +14,18 @@ export default class VisualizerPlugin {
 
     apply(compiler) {
         compiler.plugin('emit', (compilation, callback) => {
-            let stats = compilation.getStats().toJson({chunkModules: true});
-            let stringifiedStats = JSON.stringify(stats);
-            stringifiedStats = stringifiedStats.replace(/</g, '&lt;').replace(/</g, '&gt;');
+            let stats = compilation.getStats().toJson({
+                hash: true,
+                version: true,
+                timings: true,
+                assets: true,
+                chunks: true,
+                chunkModules: true,
+                modules: true,
+                reasons: true,
+                source: false,
+            });
+            let stringifiedStats = JSON.stringify(stats).replace(/</g, '\\u003c');
 
             let html = `<!doctype html>
                 <meta charset="UTF-8">
