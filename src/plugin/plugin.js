@@ -18,13 +18,18 @@ export default class VisualizerPlugin {
             let stringifiedStats = JSON.stringify(stats);
             stringifiedStats = stringifiedStats.replace(/</g, '&lt;').replace(/</g, '&gt;');
 
-            let html = `<!doctype html>
+            let html = `
+              <!doctype html>
+              <head>
                 <meta charset="UTF-8">
                 <title>Webpack Visualizer</title>
                 <style>${cssString}</style>
+              </head>
+              <body>
                 <div id="App"></div>
                 <script>window.stats = ${stringifiedStats};</script>
                 <script>${jsString}</script>
+              </body>
             `;
 
             let outputFile = path.join(compilation.outputOptions.path, this.opts.filename);
