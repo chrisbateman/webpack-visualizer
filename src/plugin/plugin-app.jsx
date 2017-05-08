@@ -70,7 +70,7 @@ export default React.createClass({
                 <div>
                     <select onChange={this.onAssetChange} value={this.state.selectedAssetIndex}>
                         <option value={0}>All Chunks</option>
-                        {this.state.assets.sort((a,b) => +(a.name > b.name) || +(a.name === b.name) - 1).map((asset, i) => <option key={i} value={i + 1}>{asset.name}</option>)}
+                        {this.state.assets.sort((a, b) => +(a.name > b.name) || +(a.name === b.name) - 1).map((asset, i) => <option key={i} value={i + 1}>{asset.name}</option>)}
                     </select>
                 </div>
             );
