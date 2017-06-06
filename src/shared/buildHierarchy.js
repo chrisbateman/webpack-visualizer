@@ -65,6 +65,9 @@ function getFile(module, fileName, parentTree) {
         getFile(module, fileName.slice(charIndex + 1), childFolder);
     } else {
         module.name = fileName;
+        if (!parentTree.children) {
+            parentTree.children = [];
+        }
         parentTree.children.push(module);
     }
 }
