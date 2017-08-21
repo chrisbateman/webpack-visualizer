@@ -14,7 +14,7 @@ Upload your stats JSON file to the site: [chrisbateman.github.io/webpack-visuali
 npm install webpack-visualizer-plugin
 ```
 ```javascript
-var Visualizer = require('webpack-visualizer-plugin');
+const Visualizer = require('webpack-visualizer-plugin');
 
 //...
 plugins: [new Visualizer()],
@@ -23,7 +23,7 @@ plugins: [new Visualizer()],
 This will output a file named `stats.html` in your output directory. You can modify the name/location by passing a `filename` parameter into the constructor.
 
 ```javascript
-var Visualizer = require('webpack-visualizer-plugin');
+const Visualizer = require('webpack-visualizer-plugin');
 
 //...
 plugins: [new Visualizer({
