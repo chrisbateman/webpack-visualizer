@@ -13,7 +13,7 @@
     "url": "git@github.com:chrisbateman/webpack-visualizer.git"
   },
   "scripts": {
-    "build": "npm run buildsite && npm run buildplugin",
+    "build": "npm run buildsite && npm run buildplugin && npm run buildComponent",
     "prebuildplugin": "rm -rf lib && mkdir lib",
     "buildplugin": "webpack src/plugin/main.jsx lib/pluginmain.js --config webpack.prod.js",
     "postbuildplugin": "babel src/plugin/plugin.js --out-file lib/plugin.js && cp src/shared/style.css lib",
@@ -23,7 +23,8 @@
     "dev": "webpack-dev-server --config webpack.dev.js",
     "lint": "eslint src --ext .js,.jsx",
     "preversion": "npm run lint && npm run build",
-    "publishSite": "git checkout gh-pages && cp dist-site/* . && git add . && git commit -m 'release' && git push origin gh-pages && git checkout master"
+    "publishSite": "git checkout gh-pages && cp dist-site/* . && git add . && git commit -m 'release' && git push origin gh-pages && git checkout master",
+    "buildComponent": "webpack src/component/WebpackVisualizer.js lib/WebpackVisualizer.js --config webpack.prod.js --output-library library --output-library-target umd"
   },
   "dependencies": {
     "d3": "^3.5.6",
