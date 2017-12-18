@@ -24,7 +24,7 @@ export default React.createClass({
     
     createChart(root) {
         let details = createVisualization({
-            svgElement: this.refs.svg,
+            svgElement: this.svgRef,
             root,
             onHover: this.props.onHover,
             onUnhover: this.props.onUnhover
@@ -40,6 +40,6 @@ export default React.createClass({
             return null;
         }
         
-        return <svg ref="svg" />;
+        return <svg ref={(svg) => { this.svgRef = svg; }}  />;
     }
 });
