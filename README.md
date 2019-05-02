@@ -35,3 +35,17 @@ plugins: [new Visualizer({
 ---
 
 ![](https://cloud.githubusercontent.com/assets/1145857/10471320/5b284d60-71da-11e5-8d35-7d1d4c58843a.png)
+
+
+## FAQ
+
+**Q: How to avoid "file.js + 143 modules" issue, which groups many input files into one large piece in the graph?**
+
+A: You need to disable `ModuleConcatenationPlugin`. With webpack 4, you can do this by passing the following to the config:
+
+```
+      ...
+      optimization: {
+        concatenateModules: false,
+      },
+```
