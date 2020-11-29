@@ -1,7 +1,7 @@
-import React, {PropTypes} from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 
-
-let Breadcrumbs = props => (
+let Breadcrumbs = (props) => (
     <div className="breadcrumbs">
         {props.nodes.map((node, i) => {
             let result = ' > ';
@@ -14,7 +14,7 @@ let Breadcrumbs = props => (
 );
 
 Breadcrumbs.propTypes = {
-    nodes: PropTypes.array
+    nodes: PropTypes.array,
 };
 
 export default Breadcrumbs;
