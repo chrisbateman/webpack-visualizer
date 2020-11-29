@@ -1,6 +1,6 @@
 {
   "name": "webpack-visualizer-plugin",
-  "version": "0.1.11",
+  "version": "1.0.0",
   "main": "lib/plugin.js",
   "author": "Chris Bateman (http://cbateman.com/)",
   "license": "MIT",
@@ -22,7 +22,7 @@
     "lint:fix": "eslint src --fix --ext .js,.jsx",
     "preversion": "npm run build",
     "publishSite": "git checkout gh-pages && cp dist-site/* . && git add . && git commit -m 'release' && git push origin gh-pages && git checkout master"
- },
+  },
   "dependencies": {
     "d3": "^3.5.6",
     "mkdirp": "^0.5.1",
@@ -56,6 +56,6 @@
     "webpack-merge": "^5.4.0"
   },
   "engines": {
-    "npm": ">=2.13.0"
+    "npm": ">=5.0.0"
   }
 }
