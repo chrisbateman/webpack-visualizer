@@ -71,8 +71,6 @@ export default class extends React.Component {
             );
         }
 
-        console.log(assetList);
-
         return (
             <div>
                 <h1>Webpack Visualizer</h1>
