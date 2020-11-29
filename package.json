@@ -28,8 +28,9 @@
   "dependencies": {
     "d3": "^3.5.6",
     "mkdirp": "^0.5.1",
-    "react": "^0.14.0",
-    "react-dom": "^0.14.0"
+    "prop-types": "^15.7.2",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1"
   },
   "devDependencies": {
     "@babel/cli": "^7.12.8",
