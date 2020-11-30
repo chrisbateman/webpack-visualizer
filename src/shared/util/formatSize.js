@@ -1,12 +1,11 @@
-
 export default function formatSize(size, precision = 1) {
     let kb = {
         label: 'k',
-        value: 1024
+        value: 1024,
     };
     let mb = {
         label: 'M',
-        value: 1024 * 1024
+        value: 1024 * 1024,
     };
     let denominator;
 
@@ -14,7 +13,7 @@ export default function formatSize(size, precision = 1) {
         denominator = mb;
     } else {
         denominator = kb;
-        if (size < (kb.value * 0.92) && precision === 0) {
+        if (size < kb.value * 0.92 && precision === 0) {
             precision = 1;
         }
     }

@@ -1,8 +1,8 @@
-import React, {PropTypes} from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import Chart from './chart';
 import ChartDetails from './chart-details';
 import Breadcrumbs from './breadcrumbs';
-
 
 export default class ChartWithDetails extends React.Component {
     constructor(props) {
@@ -11,33 +11,35 @@ export default class ChartWithDetails extends React.Component {
         this.state = {
             breadcrumbNodes: [],
             hoverDetails: null,
-            paddingDiff: 0
+            paddingDiff: 0,
         };
-
-        this.onChartHover = this.onChartHover.bind(this);
-        this.onChartUnhover = this.onChartUnhover.bind(this);
-        this.onChartRender = this.onChartRender.bind(this);
     }
 
-    onChartHover(details) {
+    static propTypes = {
+        breadcrumbNodes: PropTypes.array,
+        bundleDetails: PropTypes.object,
+        chartData: PropTypes.object,
+    };
+
+    onChartHover = (details) => {
         this.setState({
             hoverDetails: details,
-            breadcrumbNodes: details.ancestorArray
+            breadcrumbNodes: details.ancestorArray,
         });
-    }
+    };
 
-    onChartUnhover() {
+    onChartUnhover = () => {
         this.setState({
             hoverDetails: null,
-            breadcrumbNodes: []
+            breadcrumbNodes: [],
         });
-    }
+    };
 
-    onChartRender(details) {
+    onChartRender = (details) => {
         this.setState({
-            paddingDiff: details.removedTopPadding
+            paddingDiff: details.removedTopPadding,
         });
-    }
+    };
 
     render() {
         let chartAreaClass = 'chart';
@@ -52,7 +54,11 @@ export default class ChartWithDetails extends React.Component {
 
         return (
             <div className={chartAreaClass}>
-                <ChartDetails bundleDetails={this.props.bundleDetails} details={this.state.hoverDetails} topMargin={0} />
+                <ChartDetails
+                    bundleDetails={this.props.bundleDetails}
+                    details={this.state.hoverDetails}
+                    topMargin={0}
+                />
                 <Chart
                     data={this.props.chartData}
                     onHover={this.onChartHover}
@@ -64,9 +70,3 @@ export default class ChartWithDetails extends React.Component {
         );
     }
 }
-
-ChartWithDetails.propTypes = {
-    breadcrumbNodes: PropTypes.array,
-    bundleDetails: PropTypes.object,
-    chartData: PropTypes.object
-};

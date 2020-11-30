@@ -1,37 +1,38 @@
-# Webpack Visualizer
-Visualize and analyze your Webpack bundle to see which modules are taking up space and which might be duplicates.
+# Webpack Visualizer 2
 
-This tool is still pretty new, so please submit issues or feature requests!
+This is a working fork of the unmaintained [webpack-visualizer-plugin](https://github.com/chrisbateman/webpack-visualizer)
 
+It works with webpack 5.x
 
-## Site Usage
-
-Upload your stats JSON file to the site: [chrisbateman.github.io/webpack-visualizer/](http://chrisbateman.github.io/webpack-visualizer/)
-
-## Plugin Usage
+## Installation
 
 ```
-npm install webpack-visualizer-plugin
-```
-```javascript
-var Visualizer = require('webpack-visualizer-plugin');
-
-//...
-plugins: [new Visualizer()],
-//...
-```
-This will output a file named `stats.html` in your output directory. You can modify the name/location by passing a `filename` parameter into the constructor.
-
-```javascript
-var Visualizer = require('webpack-visualizer-plugin');
-
-//...
-plugins: [new Visualizer({
-  filename: './statistics.html'
-})],
-//...
+npm i -D webpack-visualizer-plugin2
 ```
 
----
+## Usage in webpack configuration
+This will generate the statistics page in /stats/ folder
+NOTE: "filename" points to the webpack output path, not the project root path
+
+```js
+const Visualizer = require('webpack-visualizer-plugin2');
+
+module.exports = {
+    plugins: [
+
+    new StatsWriterPlugin({
+        filename: path.join('..', 'stats', 'log.json'),
+        fields: null,
+        stats: { chunkModules: true },
+    }),
+
+    new Visualizer({
+        filename: path.join('..', 'stats', 'statistics.html'),
+    }),
+
+    ],
+}
+
+```
 
 ![](https://cloud.githubusercontent.com/assets/1145857/10471320/5b284d60-71da-11e5-8d35-7d1d4c58843a.png)
