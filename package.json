@@ -1,5 +1,6 @@
 {
     "name": "webpack-visualizer-plugin2",
+    "description": "Generate webpack bundle chart",
     "version": "1.0.0",
     "main": "lib/plugin.js",
     "author": "Chris Bateman (http://cbateman.com/)",
@@ -10,6 +11,12 @@
             "email": "jo.mataloni@gmail.com"
         }
     ],
+    "keywords": [
+        "webpack",
+        "statistics",
+        "bundle",
+        "chunks"
+      ],
     "license": "MIT",
     "files": [
         "lib",
@@ -17,7 +24,7 @@
     ],
     "repository": {
         "type": "git",
-        "url": "git@github.com:jonamat/webpack-visualizer.git"
+        "url": "https://github.com/jonamat/webpack-visualizer"
     },
     "scripts": {
         "build": "npm run build:site && npm run build:plugin",
