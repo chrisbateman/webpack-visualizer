@@ -19,17 +19,10 @@ const Visualizer = require('webpack-visualizer-plugin2');
 
 module.exports = {
     plugins: [
-
-    new StatsWriterPlugin({
-        filename: path.join('..', 'stats', 'log.json'),
-        fields: null,
-        stats: { chunkModules: true },
-    }),
-
-    new Visualizer({
-        filename: path.join('..', 'stats', 'statistics.html'),
-    }),
-
+        new Visualizer({
+            filename: path.join('..', 'stats', 'statistics.html'),
+            throwOnError: true
+        }),
     ],
 }
 

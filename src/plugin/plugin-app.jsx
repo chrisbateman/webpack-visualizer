@@ -5,7 +5,7 @@ import Footer from '../shared/components/footer';
 import buildHierarchy from '../shared/buildHierarchy';
 import { getAssetsData, getBundleDetails, ERROR_CHUNK_MODULES } from '../shared/util/stat-utils';
 
-export default class extends React.Component {
+class App extends React.Component {
     constructor(props) {
         super(props);
 
@@ -86,3 +86,5 @@ export default class extends React.Component {
         );
     }
 }
+
+export default App;
