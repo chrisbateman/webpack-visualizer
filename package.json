@@ -1,7 +1,7 @@
 {
     "name": "webpack-visualizer-plugin2",
     "description": "Generate webpack bundle chart",
-    "version": "1.0.0",
+    "version": "1.1.0",
     "main": "lib/plugin.js",
     "author": "Chris Bateman (http://cbateman.com/)",
     "contributors": [
