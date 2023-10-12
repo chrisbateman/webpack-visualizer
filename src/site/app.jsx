@@ -1,54 +1,58 @@
-import React from 'react';
+import React, { createRef } from 'react';
 import ChartWithDetails from '../shared/components/chart-with-details';
 import Footer from '../shared/components/footer';
 import addDragDrop from '../shared/util/dragdrop';
 import readFile from '../shared/util/readFile';
 import formatSize from '../shared/util/formatSize';
-import {getAssetsData, getBundleDetails, ERROR_CHUNK_MODULES} from '../shared/util/stat-utils';
+import { getAssetsData, getBundleDetails, ERROR_CHUNK_MODULES } from '../shared/util/stat-utils';
 import buildHierarchy from '../shared/buildHierarchy';
 
+export default class App extends React.Component {
+    constructor(props) {
+        super(props);
 
-export default React.createClass({
-    getInitialState() {
-        return {
+        this.state = {
             assets: [],
             needsUpload: true,
             dragging: false,
             chartData: null,
-            selectedAssetIndex: 0
+            selectedAssetIndex: 0,
         };
-    },
+
+        this.UploadArea = createRef();
+        this.FileInput = createRef();
+    }
 
     componentDidMount() {
         addDragDrop({
-            el: this.refs.UploadArea,
-            callback: file => {
+            el: this.UploadArea.current,
+            callback: (file) => {
                 readFile(file, this.handleFileUpload);
             },
             onDragStart: () => {
                 this.setState({
-                    dragging: true
+                    dragging: true,
                 });
             },
             onDragEnd: () => {
                 this.setState({
-                    dragging: false
+                    dragging: false,
                 });
-            }
+            },
         });
-    },
+    }
 
-    uploadAreaClick() {
+    uploadAreaClick = () => {
         if (this.state.needsUpload) {
-            this.refs.FileInput.click();
+            this.FileInput.current.click();
         }
-    },
+    };
 
-    onFileChange(ev) {
+    onFileChange = (ev) => {
         readFile(ev.target.files[0], this.handleFileUpload);
-    },
+    };
 
-    handleFileUpload(jsonText) {
+    handleFileUpload = (jsonText) => {
         let stats = JSON.parse(jsonText);
         let assets = getAssetsData(stats.assets, stats.chunks);
 
@@ -57,13 +61,13 @@ export default React.createClass({
             chartData: buildHierarchy(stats.modules),
             needsUpload: false,
             selectedAssetIndex: 0,
-            stats
+            stats,
         });
-    },
+    };
 
-    loadDemo() {
+    loadDemo = () => {
         this.setState({
-            demoLoading: true
+            demoLoading: true,
         });
 
         let request = new XMLHttpRequest();
@@ -71,7 +75,7 @@ export default React.createClass({
 
         request.onload = () => {
             this.setState({
-                demoLoading: false
+                demoLoading: false,
             });
 
             if (request.status >= 200 && request.status < 400) {
@@ -80,9 +84,9 @@ export default React.createClass({
         };
 
         request.send();
-    },
+    };
 
-    onAssetChange(ev) {
+    onAssetChange = (ev) => {
         let selectedAssetIndex = Number(ev.target.value);
         let modules, chartData, error;
 
@@ -102,28 +106,23 @@ export default React.createClass({
         this.setState({
             chartData,
             error,
-            selectedAssetIndex
+            selectedAssetIndex,
         });
-    },
+    };
 
-    renderUploadArea(uploadAreaClass) {
+    renderUploadArea = (uploadAreaClass) => {
         if (this.state.needsUpload) {
             return (
-                <div ref="UploadArea" className={uploadAreaClass} onClick={this.uploadAreaClick}>
+                <div ref={this.UploadArea} className={uploadAreaClass} onClick={this.uploadAreaClick}>
                     <div className="uploadArea-uploadMessage">
                         <p>Drop JSON file here or click to choose.</p>
-                        <small>Files won't be uploaded &mdash; your data stays in your browser.</small>
+                        <small>Files won&apos;t be uploaded &mdash; your data stays in your browser.</small>
                     </div>
-                    <input
-                        ref="FileInput"
-                        type="file"
-                        className="hiddenFileInput"
-                        onChange={this.onFileChange}
-                    />
+                    <input ref={this.FileInput} type="file" className="hiddenFileInput" onChange={this.onFileChange} />
                 </div>
             );
         }
-    },
+    };
 
     render() {
         let demoButton, assetList;
@@ -142,13 +141,17 @@ export default React.createClass({
                 demoClass += ' demoLoading';
             }
 
-            demoButton = <button onClick={this.loadDemo} className={demoClass} style={{marginTop: '0.5em'}}>Try a Demo</button>;
+            demoButton = (
+                <button onClick={this.loadDemo} className={demoClass} style={{ marginTop: '0.5em' }}>
+                    Try a Demo
+                </button>
+            );
         }
 
-        if (this.state.stats){
+        if (this.state.stats) {
             bundleDetails = getBundleDetails({
                 assets: this.state.assets,
-                selectedAssetIndex: this.state.selectedAssetIndex
+                selectedAssetIndex: this.state.selectedAssetIndex,
             });
         }
 
@@ -157,7 +160,11 @@ export default React.createClass({
                 <div>
                     <select onChange={this.onAssetChange} value={this.state.selectedAssetIndex}>
                         <option value={0}>All Chunks</option>
-                        {this.state.assets.map((asset, i) => <option key={i} value={i + 1}>{asset.name} ({formatSize(asset.size)})</option>)}
+                        {this.state.assets.map((asset, i) => (
+                            <option key={i} value={i + 1}>
+                                {asset.name} ({formatSize(asset.size)})
+                            </option>
+                        ))}
                     </select>
                 </div>
             );
@@ -177,14 +184,29 @@ export default React.createClass({
 
                 <Footer>
                     <h2>How do I get stats JSON from webpack?</h2>
-                    <p><code>webpack --json > stats.json</code></p>
-                    <p>If you're customizing your stats output or using webpack-stats-plugin, be sure to set <code>chunkModules</code> to <code>true</code> (see <a href="https://github.com/FormidableLabs/webpack-stats-plugin/issues/18#issuecomment-268699997">here</a> for an example).</p>
+                    <p>
+                        <code>webpack --json &gt; stats.json</code>
+                    </p>
+                    <p>
+                        If you&apos;re customizing your stats output or using webpack-stats-plugin, be sure to set{' '}
+                        <code>chunkModules</code> to <code>true</code> (see{' '}
+                        <a href="https://github.com/FormidableLabs/webpack-stats-plugin/issues/18#issuecomment-268699997">
+                            here
+                        </a>{' '}
+                        for an example).
+                    </p>
 
                     <h2>Try the Plugin!</h2>
-                    <p>This tool is also available as a webpack plugin. See <a href="https://github.com/chrisbateman/webpack-visualizer#plugin-usage">here</a> for usage details.</p>
-                    <p><code>npm install webpack-visualizer-plugin</code></p>
+                    <p>
+                        This tool is also available as a webpack plugin. See{' '}
+                        <a href="https://github.com/chrisbateman/webpack-visualizer#plugin-usage">here</a> for usage
+                        details.
+                    </p>
+                    <p>
+                        <code>npm install webpack-visualizer-plugin</code>
+                    </p>
                 </Footer>
             </div>
         );
     }
-});
+}

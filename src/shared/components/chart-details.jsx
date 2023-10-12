@@ -1,16 +1,16 @@
-import React, {PropTypes} from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import formatSize from '../util/formatSize';
-
 
 export default function ChartDetails(props) {
     let title, bigText, sizeText;
-    let {bundleDetails, details} = props;
+    let { bundleDetails, details } = props;
 
     if (details) {
         let rawSize = formatSize(details.size);
 
         if (bundleDetails.actual) {
-            let actualSize = formatSize(bundleDetails.actual * details.percentage.replace('%', '') * .01, 0);
+            let actualSize = formatSize(bundleDetails.actual * details.percentage.replace('%', '') * 0.01, 0);
             sizeText = `${actualSize} actual | ${rawSize} raw`;
         } else {
             sizeText = `${rawSize} raw`;
@@ -18,7 +18,6 @@ export default function ChartDetails(props) {
 
         title = details.name;
         bigText = details.percentage;
-
     } else if (bundleDetails.assetName) {
         title = bundleDetails.assetName;
         if (bundleDetails.type === 'collection') {
@@ -36,7 +35,7 @@ export default function ChartDetails(props) {
     }
 
     return (
-        <div className="details" style={{marginTop: `-${props.topMargin}`}}>
+        <div className="details" style={{ marginTop: `-${props.topMargin}` }}>
             <span className="details-name">{title}</span>
             <div className="details-percentage">{bigText}</div>
             {sizeText && <div className="details-size">{sizeText}</div>}
@@ -47,5 +46,5 @@ export default function ChartDetails(props) {
 ChartDetails.propTypes = {
     bundleDetails: PropTypes.object,
     details: PropTypes.object,
-    topMargin: PropTypes.number
+    topMargin: PropTypes.number,
 };

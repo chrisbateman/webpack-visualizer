@@ -1,36 +1,27 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import ChartWithDetails from '../shared/components/chart-with-details';
 import Footer from '../shared/components/footer';
 import buildHierarchy from '../shared/buildHierarchy';
-import {getAssetsData, getBundleDetails, ERROR_CHUNK_MODULES} from '../shared/util/stat-utils';
+import { getAssetsData, getBundleDetails, ERROR_CHUNK_MODULES } from '../shared/util/stat-utils';
 
+class App extends React.Component {
+    constructor(props) {
+        super(props);
 
-export default React.createClass({
-    propTypes: {
-        stats: React.PropTypes.object
-    },
-
-    getInitialState() {
-        return {
-            assets: [],
-            chartData: null,
-            selectedAssetIndex: 0
-        };
-    },
-
-    componentWillMount() {
-        let stats = this.props.stats;
-        let assets = getAssetsData(stats.assets, stats.chunks);
-
-        this.setState({
-            assets,
-            chartData: buildHierarchy(stats.modules),
+        this.state = {
+            assets: (this.props.stats && getAssetsData(this.props.stats.assets, this.props.stats.chunks)) || [],
+            chartData: (this.props.stats && buildHierarchy(this.props.stats.modules)) || null,
             selectedAssetIndex: 0,
-            stats
-        });
-    },
+            stats: this.props.stats,
+        };
+    }
 
-    onAssetChange(ev) {
+    static propTypes = {
+        stats: PropTypes.object,
+    };
+
+    onAssetChange = (ev) => {
         let selectedAssetIndex = Number(ev.target.value);
         let modules, chartData, error;
 
@@ -50,18 +41,18 @@ export default React.createClass({
         this.setState({
             chartData,
             error,
-            selectedAssetIndex
+            selectedAssetIndex,
         });
-    },
+    };
 
     render() {
         let assetList;
         let bundleDetails = {};
 
-        if (this.state.stats){
+        if (this.state.stats) {
             bundleDetails = getBundleDetails({
                 assets: this.state.assets,
-                selectedAssetIndex: this.state.selectedAssetIndex
+                selectedAssetIndex: this.state.selectedAssetIndex,
             });
         }
 
@@ -70,7 +61,11 @@ export default React.createClass({
                 <div>
                     <select onChange={this.onAssetChange} value={this.state.selectedAssetIndex}>
                         <option value={0}>All Chunks</option>
-                        {this.state.assets.map((asset, i) => <option key={i} value={i + 1}>{asset.name}</option>)}
+                        {this.state.assets.map((asset, i) => (
+                            <option key={i} value={i + 1}>
+                                {asset.name}
+                            </option>
+                        ))}
                     </select>
                 </div>
             );
@@ -90,4 +85,6 @@ export default React.createClass({
             </div>
         );
     }
-});
+}
+
+export default App;
